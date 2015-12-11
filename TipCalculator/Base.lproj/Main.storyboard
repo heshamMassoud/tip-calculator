@@ -40,10 +40,16 @@
                             </textField>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="6" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="msC-hX-coP">
                                 <rect key="frame" x="190" y="116" width="396" height="31"/>
+                                <connections>
+                                    <action selector="taxPercentageChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="1HQ-qh-dOQ"/>
+                                </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2b-zS-LaE">
                                 <rect key="frame" x="268" y="154" width="64" height="30"/>
                                 <state key="normal" title="Calculate"/>
+                                <connections>
+                                    <action selector="calculateButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="s8m-4G-2GS"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fU-6A-Izn">
                                 <rect key="frame" x="16" y="192" width="568" height="400"/>
@@ -80,9 +86,19 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Tip Calculator" id="GCG-cA-cGS"/>
+                    <connections>
+                        <outlet property="resultsTextView" destination="5fU-6A-Izn" id="GCt-g5-QEz"/>
+                        <outlet property="taxPercentageLabel" destination="1uL-Vm-cDU" id="eLl-Zz-J06"/>
+                        <outlet property="taxPercentageSlider" destination="msC-hX-coP" id="iEr-bl-o58"/>
+                        <outlet property="totalBillTextField" destination="UYH-Id-hUl" id="iLI-F3-mkr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="3Te-sF-lts"/>
+                <tapGestureRecognizer id="3Te-sF-lts">
+                    <connections>
+                        <action selector="viewTapped:" destination="BYZ-38-t0r" id="TBE-rX-hky"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1057" y="349"/>
         </scene>
