@@ -8,22 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    let tipCalc = TipCalculatorModel(total: 33.25, taxPercantage: 0.06)
-
+class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var totalBillTextField: UITextField!
     @IBOutlet weak var taxPercentageSlider: UISlider!
     @IBOutlet weak var taxPercentageLabel: UILabel!
-    @IBOutlet weak var resultsTextView: UITextView!
+    @IBOutlet weak var tableView: UITableView!
+
+    let tipCalc = TipCalculatorModel(total: 33.25, taxPercantage: 0.06)
+    var possibleTips = Dictionary<Int, (tip: Double, totalWithTip: Double)>()
+    var sortedKeys: [Int] = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        refreshUI()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    func refreshUI() {
+        totalBillTextField.text = String(tipCalc.total)
+        taxPercentageSlider.value = Float(tipCalc.taxPercantage) * 100.0
+        taxPercentageLabel.text = "Tax Percentage (\(Int(taxPercentageSlider.value))%)"
+    }
 
     @IBAction func calculateButtonTapped(sender: AnyObject) {
         tipCalc.total = Double((totalBillTextField.text! as NSString).doubleValue)
-        let possibleTips = tipCalc.returnPossibleTips()
-        var results = ""
-        for (tipPercentage, tipValue) in possibleTips {
-            results += "\(tipPercentage)%: \(tipValue)\n"
-        }
-        resultsTextView.text = results
+        possibleTips = tipCalc.returnPossibleTips()
+        sortedKeys = Array(possibleTips.keys).sort()
+        tableView.reloadData()
     }
 
     @IBAction func taxPercentageChanged(sender: AnyObject) {
@@ -35,21 +49,20 @@ class ViewController: UIViewController {
         totalBillTextField.resignFirstResponder()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        refreshUI()
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sortedKeys.count
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: nil)
+        let currentRow = indexPath.row
+        let tipPercentage = sortedKeys[currentRow]
+        let tipAmount = possibleTips[tipPercentage]!.tip
+        let totalAmountWithTip = possibleTips[tipPercentage]!.totalWithTip
 
-    func refreshUI() {
-        totalBillTextField.text = String(tipCalc.total)
-        taxPercentageSlider.value = Float(tipCalc.taxPercantage) * 100.0
-        taxPercentageLabel.text = "Tax Percentage (\(Int(taxPercentageSlider.value))%)"
-        resultsTextView.text = ""
+        cell.textLabel?.text = "\(tipPercentage)%:"
+        cell.detailTextLabel?.text = String(format:"Tip: $%0.2f, Total: $%0.2f", tipAmount, totalAmountWithTip)
+        return cell
     }
 
 }
