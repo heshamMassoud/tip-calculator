@@ -22,13 +22,15 @@ class TipCalculatorModel {
         self.taxPercantage = taxPercantage
     }
 
-    func calcTipWithTipPercantage(tipPercantage: Double) -> Double {
-        return subTotal * tipPercantage
+    func calcTipWithTipPercantage(tipPercantage: Double) -> (Double, Double) {
+        let tip = subTotal * tipPercantage
+        let totalWithTip = tip + total
+        return (tip, totalWithTip)
     }
 
-    func returnPossibleTips() -> [Int: Double] {
+    func returnPossibleTips() -> [Int: (tip: Double, totalWithTip: Double)] {
         let possibleTips = [0.15, 0.18, 0.20]
-        var returnValue = [Int: Double]()
+        var returnValue = [Int: (tip: Double, totalWithTip: Double)]()
         for possibleTip in possibleTips {
             let intPercantage = Int(possibleTip * 100)
             returnValue[intPercantage] = calcTipWithTipPercantage(possibleTip)
