@@ -30,7 +30,7 @@ class TipCalculatorModel {
         let possibleTips = [0.15, 0.18, 0.20]
         var returnValue = [Int: Double]()
         for possibleTip in possibleTips {
-            let intPercantage = Int(possibleTip*100)
+            let intPercantage = Int(possibleTip * 100)
             returnValue[intPercantage] = calcTipWithTipPercantage(possibleTip)
         }
         return returnValue
