@@ -16,7 +16,7 @@ class TipCalculatorModel {
             return total / (taxPercantage + 1)
         }
     }
-    
+
     init(total: Double, taxPercantage: Double) {
         self.total = total
         self.taxPercantage = taxPercantage
