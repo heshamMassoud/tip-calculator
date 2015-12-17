@@ -14,19 +14,15 @@ A sample app (from [Ray Wenderlich](http://www.raywenderlich.com/)) as a tutoria
 
 #### Useful commands
 
-#####In shell:
+#####Linting
 
-######Linting:
+Same commands will be executed by CI/Travis:
 
-Please lint the project locally before committing to check for code styling and conventions (same command will be executed by CI/Travis):
--Install swiftlint using homebrew
-`brew install swiftlint`
-or install it in a different way
--Lint the local project by being in it the root directory, then running:
-`swiftlint lint`
+- Install swiftlint using homebrew with `brew install swiftlint`.
+- Lint the project locally by running `swiftlint lint` in the root directory.
 
 #### Acceptance tests
--TODO
+TODO
 
 #### Useful files
 - `.swiftlint.yml` the custom linting configuration for the project
