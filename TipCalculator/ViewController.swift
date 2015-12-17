@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 
     func refreshUI() {
         totalBillTextField.text = String(tipCalc.total)
-        taxPercentageSlider.value = Float(tipCalc.taxPercantage) * 100.0
+        taxPercentageSlider.value = Float(tipCalc.taxPercantage)*100.0
         taxPercentageLabel.text = "Tax Percentage (\(Int(taxPercentageSlider.value))%)"
     }
 
